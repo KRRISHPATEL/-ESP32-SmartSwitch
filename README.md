@@ -19,16 +19,6 @@ A Wi-Fi controlled dual-relay smart switch with LED strip support, built on the 
 
 ---
 
-## 📸 Screenshots
-
-> Connect to the ESP32 access point and open `192.168.4.1` in any browser.
-
-| Home | Relay Detail | LED Settings |
-|------|-------------|--------------|
-| Device cards with live status | Big plug graphic, timer & alarm shortcuts | Color picker, effects grid, brightness |
-
----
-
 ## 🛠 Hardware Requirements
 
 | Component | Details |
