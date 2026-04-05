@@ -103,9 +103,7 @@ void applyLEDs() {
   }
 }
 
-/* ==========================================================
-   SHARED CSS + JS (loaded once via <link> trick - embedded)
-   ========================================================== */
+
 String getCommonHead(String title) {
   return R"rawliteral(<!DOCTYPE html>
 <html lang="en">
@@ -125,9 +123,7 @@ a{text-decoration:none;color:inherit;}
 )rawliteral";
 }
 
-/* ==========================================================
-   HOME PAGE  (2 relay cards, Realme-style)
-   ========================================================== */
+
 void handleRoot() {
   DateTime now = rtc.now();
   char timeStr[20];
@@ -372,13 +368,13 @@ body { background: #0b0e14; }
 <div class="content">
 )rawliteral";
 
-  /* ---- RELAY 1 CARD ---- */
+
   String r1Class = relay1State ? "on" : "off";
   page += "<a href='/relay/1' class='plug-card " + r1Class + "'>";
   page += "<div class='card-inner'>";
   page += "<div class='plug-wrap'>";
   page += "<div class='plug-ring'></div>";
-  // Indian 3-pin socket SVG
+
   page += R"rawliteral(<svg class="plug-svg" width="80" height="80" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
   <rect class="socket-body" x="8" y="8" width="84" height="84" rx="18"/>
   <circle class="socket-pin" cx="50" cy="32" r="9"/>
@@ -396,7 +392,7 @@ body { background: #0b0e14; }
   page += "<div class='card-detail-btn'>Manage <span class='arr'>&#8594;</span></div>";
   page += "</a>";
 
-  /* ---- RELAY 2 CARD ---- */
+ 
   String r2Class = relay2State ? "on" : "off";
   page += "<a href='/relay/2' class='plug-card " + r2Class + "'>";
   page += "<div class='card-inner'>";
@@ -419,7 +415,7 @@ body { background: #0b0e14; }
   page += "<div class='card-detail-btn'>Manage <span class='arr'>&#8594;</span></div>";
   page += "</a>";
 
-  /* ---- QUICK ACTIONS ---- */
+ 
   page += R"rawliteral(
   <div class="qrow">
     <a href="/allon"  class="qbtn qbtn-on"><span class="qbtn-icon">&#9889;</span>All ON</a>
@@ -427,7 +423,7 @@ body { background: #0b0e14; }
   </div>
 )rawliteral";
 
-  /* ---- LED MINI ---- */
+
   char ledHex[8]; sprintf(ledHex,"#%02X%02X%02X",ledRed,ledGreen,ledBlue);
   page += "<div class='led-mini-card'>";
   page += "<div class='led-mini-row'>";
@@ -446,7 +442,7 @@ body { background: #0b0e14; }
 
   page += "</div>"; // content
 
-  /* ---- BOTTOM NAV ---- */
+ 
   page += R"rawliteral(
 <div class="bottom-nav">
   <a href="/datetime" class="nav-item">
@@ -485,9 +481,7 @@ setInterval(updateClock,10000);
   server.send(200,"text/html",page);
 }
 
-/* ==========================================================
-   RELAY DETAIL PAGE  (Realme Smart Plug exact layout)
-   ========================================================== */
+
 void handleRelayPage(int relay) {
   bool state   = (relay==1) ? relay1State : relay2State;
   String rName = (relay==1) ? relay1Name  : relay2Name;
@@ -818,9 +812,7 @@ window.onload=function(){var p=sessionStorage.getItem('sp');if(p){window.scrollT
   server.send(200,"text/html",page);
 }
 
-/* ==========================================================
-   LED PAGE
-   ========================================================== */
+
 void handleLED() {
   char hexColor[8]; sprintf(hexColor,"#%02X%02X%02X",ledRed,ledGreen,ledBlue);
   String page = getCommonHead("LED Settings");
@@ -964,7 +956,7 @@ function setPC(r,g,b){document.getElementById('rv').value=r;document.getElementB
   server.send(200,"text/html",page);
 }
 
-/* -- Simple sub-pages -- */
+
 void handleTimersPage(int relay) {
   String rName=(relay==1)?relay1Name:relay2Name;
   Timer* T=(relay==1)?r1Timer:r2Timer;
@@ -1020,7 +1012,7 @@ void handleDateTime() {
   server.send(200,"text/html",page);
 }
 
-/* -------- SETUP -------- */
+
 void setup() {
   Serial.begin(115200);
   pinMode(RELAY1,OUTPUT); pinMode(RELAY2,OUTPUT);
